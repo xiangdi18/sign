@@ -1,10 +1,10 @@
 import streamlit as st
 import pandas as pd
-import cv2
+#import cv2
 import matplotlib.pyplot as plt
 import numpy as np
 import tempfile 
-import os
+#import os
 
 def show_image(img):
     fig, ax = plt.subplots(figsize=(10, 6))
