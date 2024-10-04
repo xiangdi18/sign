@@ -4,7 +4,7 @@ import pandas as pd
 import matplotlib.pyplot as plt
 import numpy as np
 import tempfile 
-#import os
+import os
 
 def show_image(img):
     fig, ax = plt.subplots(figsize=(10, 6))
@@ -24,6 +24,11 @@ from signature_detect.judger import Judger
 
 st.title('Capstone Draft')
 
+# Ensure the upload directory exists
+upload_dir = "uploads"
+if not os.path.exists(upload_dir):
+    os.makedirs(upload_dir)
+    
 uploaded_file=""
 
 uploaded_file = st.file_uploader("Upload a PDF to validate the signature.",type=['jpg','png'])
@@ -87,11 +92,9 @@ if uploaded_file is not None:
     
     st.image(uploaded_file)
        
- # Create a temporary directory
-    temp_dir = tempfile.mkdtemp()
         
         # Define the path where the file will be saved
-    file_path = os.path.join(temp_dir, uploaded_file.name)
+    file_path = os.path.join(upload_dir, uploaded_file.name)
 
         # Save the uploaded file to the temporary directory
     with open(file_path, "wb") as f:
