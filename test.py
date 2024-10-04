@@ -5,6 +5,8 @@ import matplotlib.pyplot as plt
 import numpy as np
 import tempfile 
 import os
+os.environ['MAGICK_CONFIGURE_PATH'] = '/app/.magick'
+
 
 def show_image(img):
     fig, ax = plt.subplots(figsize=(10, 6))
