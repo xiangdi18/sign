@@ -106,7 +106,11 @@ uploaded_file = st.file_uploader("Upload a PDF or image to validate the signatur
 
 # Display uploaded image & save the image as the image uploaded is in memory.
 if uploaded_file is not None:
-    
+
+# Create 'uploads' directory if it doesn't exist
+        if not os.path.exists('uploads'):
+             temp_dir=os.makedirs('uploads')
+            
 #    st.image(uploaded_file)
 
 # Extract the original filename without extension
@@ -124,10 +128,6 @@ if uploaded_file is not None:
 
     else:   
 
-
-# Create 'uploads' directory if it doesn't exist
-        if not os.path.exists('uploads'):
-             temp_dir=os.makedirs('uploads')
 
             
             # Define the path where the file will be saved
