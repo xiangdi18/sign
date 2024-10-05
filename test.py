@@ -101,7 +101,7 @@ st.title('Capstone Draft')
 
 uploaded_file=""
 
-uploaded_file = st.file_uploader("Upload a PDF to validate the signature.",type=['pdf','jpg','png'])
+uploaded_file = st.file_uploader("Upload a PDF or image to validate the signature.",type=['pdf','jpg','png'])
 
 
 # Display uploaded image & save the image as the image uploaded is in memory.
