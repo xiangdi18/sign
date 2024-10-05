@@ -108,8 +108,8 @@ uploaded_file = st.file_uploader("Upload a PDF or image to validate the signatur
 if uploaded_file is not None:
 
 # Create 'uploads' directory if it doesn't exist
-        if not os.path.exists('uploads'):
-             temp_dir=os.makedirs('uploads')
+    if not os.path.exists('uploads'):
+          temp_dir=os.makedirs('uploads')
             
 #    st.image(uploaded_file)
 
