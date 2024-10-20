@@ -20,7 +20,7 @@ from signature_detect.judger import Judger
 from openai import OpenAI
 import base64
 from mysecrets import PASSWORD
-from utility import check_password()
+from utility import check_password
 
 # Do not continue if check_password is not True.  
 if not check_password():  
