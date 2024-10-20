@@ -29,8 +29,6 @@ from mysecrets import PASSWORD
 
 user_password = st.text_input("Enter password:")
 
-user_password = st.text_input("Enter password:")
-
 if user_password:
     if user_password == PASSWORD:
         st.write("Access granted!")
