@@ -19,6 +19,7 @@ from signature_detect.loader import Loader
 from signature_detect.judger import Judger
 from openai import OpenAI
 import base64
+from secrets import PASSWORD
 
 with st.expander("Disclaimer"):
     st.write("""
@@ -32,6 +33,26 @@ with st.expander("Disclaimer"):
 """ )
 
     
+
+password_attempts = 3
+attempts_remaining = password_attempts
+
+while attempts_remaining > 0:
+    st.write(f"Attempts remaining: {attempts_remaining}")
+    user_password = st.text_input("Enter password:", type="password")
+    if user_password == PASSWORD:
+        st.write("Access granted!")
+        break
+    elif user_password:
+        attempts_remaining -= 1
+        st.write("Access denied! Try again.")
+
+if attempts_remaining == 0:
+    st.write("Too many incorrect attempts. Access denied permanently.")
+    st.stop()
+
+
+
 
 client = OpenAI(
     api_key="",
