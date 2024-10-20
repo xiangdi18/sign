@@ -19,7 +19,7 @@ from signature_detect.loader import Loader
 from signature_detect.judger import Judger
 from openai import OpenAI
 import base64
-from secrets import PASSWORD
+from mysecrets import PASSWORD
 
 with st.expander("Disclaimer"):
     st.write("""
