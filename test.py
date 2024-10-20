@@ -20,7 +20,7 @@ from signature_detect.judger import Judger
 from openai import OpenAI
 import base64
 
-with st.expander("See explanation"):
+with st.expander("Disclaimer"):
     st.write("""
 
     IMPORTANT NOTICE: This web application is developed as a proof-of-concept prototype. The information provided here is NOT intended for actual usage and should not be relied upon for making any decisions, especially those related to financial, legal, or healthcare matters.
