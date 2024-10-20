@@ -19,10 +19,19 @@ from signature_detect.loader import Loader
 from signature_detect.judger import Judger
 from openai import OpenAI
 import base64
-from utility import check_password
+from mysecrets import PASSWORD
+#from utility import check_password
+
 
 # Do not continue if check_password is not True.  
-if not check_password():  
+#if not check_password():  
+#    st.stop()
+
+user_password = st.text_input("Enter password:")
+if user_password == PASSWORD:
+    st.write("Access granted!")
+else:
+    st.write("Access denied!")
     st.stop()
 
 
