@@ -39,7 +39,7 @@ attempts_remaining = password_attempts
 
 while attempts_remaining > 0:
     st.write(f"Attempts remaining: {attempts_remaining}")
-    user_password = st.text_input("Enter password:", type="password")
+    user_password = st.text_input("Enter password:", type="password" , key=f"password_input_{attempts_remaining}")
     if user_password == PASSWORD:
         st.write("Access granted!")
         break
