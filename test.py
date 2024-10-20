@@ -34,23 +34,23 @@ with st.expander("Disclaimer"):
 
     
 
-password_attempts = 3
-attempts_remaining = password_attempts
+# Initialize session state
+if 'attempts_remaining' not in st.session_state:
+    st.session_state.attempts_remaining = 3
 
-while attempts_remaining > 0:
-    st.write(f"Attempts remaining: {attempts_remaining}")
-    user_password = st.text_input("Enter password:", type="password" , key=f"password_input_{attempts_remaining}")
+st.write(f"Attempts remaining: {st.session_state.attempts_remaining}")
+
+if st.session_state.attempts_remaining > 0:
+    user_password = st.text_input("Enter password:", type="password", key="password_input")
     if user_password == PASSWORD:
         st.write("Access granted!")
-        break
+        st.session_state.attempts_remaining = -1  # Invalidates further attempts
     elif user_password:
-        attempts_remaining -= 1
+        st.session_state.attempts_remaining -= 1
         st.write("Access denied! Try again.")
 
-if attempts_remaining == 0:
+if st.session_state.attempts_remaining == 0:
     st.write("Too many incorrect attempts. Access denied permanently.")
-    st.stop()
-
 
 
 
