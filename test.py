@@ -32,29 +32,6 @@ with st.expander("Disclaimer"):
 
 """ )
 
-    # Initialize session state
-if 'attempts_remaining' not in st.session_state:
-    st.session_state.attempts_remaining = 3
-
-def check_password():
-    if st.session_state.password == PASSWORD:
-        st.session_state.attempts_remaining = -1
-        st.session_state.access_granted = True
-    else:
-        st.session_state.attempts_remaining -= 1
-        st.session_state.access_granted = False
-
-if st.session_state.attempts_remaining > 0:
-    st.write(f"Attempts remaining: {st.session_state.attempts_remaining}")
-    st.text_input("Enter password:", type="password", key="password", on_change=check_password)
-
-if st.session_state.attempts_remaining == 0:
-    st.write("Too many incorrect attempts. Access denied permanently.")
-
-if 'access_granted' in st.session_state and st.session_state.access_granted:
-    st.write("Access granted!")
-elif 'access_granted' in st.session_state and not st.session_state.access_granted:
-    st.write("Access denied! Try again.")
 
 
 
