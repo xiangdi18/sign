@@ -27,14 +27,22 @@ from mysecrets import PASSWORD
 #if not check_password():  
 #    st.stop()
 
-user_password = st.text_input("Enter password:" , type="password")
+# Initialize session state
+if 'authenticated' not in st.session_state:
+    st.session_state.authenticated = False
 
-if user_password:
-    if user_password == PASSWORD:
+def check_password():
+    if st.session_state.user_password == PASSWORD:
+        st.session_state.authenticated = True
+
+if not st.session_state.authenticated:
+    st.text_input("Enter password:", type="password", key="user_password", on_change=check_password)
+    if st.session_state.authenticated:
         st.write("Access granted!")
-    else:
-        st.write("Access denied!")
-
+    elif st.session_state.user_password:
+        st.write("Access denied! Try again.")
+else:
+    st.write("Access granted!")
 
 with st.expander("Disclaimer"):
     st.write("""
