@@ -28,11 +28,14 @@ from mysecrets import PASSWORD
 #    st.stop()
 
 user_password = st.text_input("Enter password:")
-if user_password == PASSWORD:
-    st.write("Access granted!")
-else:
-    st.write("Access denied!")
-    st.stop()
+
+user_password = st.text_input("Enter password:")
+
+if user_password:
+    if user_password == PASSWORD:
+        st.write("Access granted!")
+    else:
+        st.write("Access denied!")
 
 
 with st.expander("Disclaimer"):
