@@ -27,7 +27,7 @@ from mysecrets import PASSWORD
 #if not check_password():  
 #    st.stop()
 
-user_password = st.text_input("Enter password:")
+user_password = st.text_input("Enter password:" , type="password")
 
 if user_password:
     if user_password == PASSWORD:
