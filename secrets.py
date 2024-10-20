@@ -1,1 +1,1 @@
-password="MYhtx"
+PASSWORD="MYhtx"
