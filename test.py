@@ -20,6 +20,12 @@ from signature_detect.judger import Judger
 from openai import OpenAI
 import base64
 from mysecrets import PASSWORD
+from utility import check_password()
+
+# Do not continue if check_password is not True.  
+if not check_password():  
+    st.stop()
+
 
 with st.expander("Disclaimer"):
     st.write("""
@@ -40,6 +46,10 @@ client = OpenAI(
     base_url="https://litellm.govtext.gov.sg/",
     default_headers={"user-agent": "Mozilla/5.0 (X11; Linux x86_64; rv:60.0) Gecko/20100101 Firefox/81.0"},
 )
+
+
+
+
 
 
 # Function to load and preprocess an image
