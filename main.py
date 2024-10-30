@@ -504,8 +504,6 @@ def main_page():
                 #st.write(f"Description 2: {description_2}")
                 #st.write(f"Final conclusion : {conclusion}")
 
-def method_page():
-    st.write()
 
 
 # Sidebar for navigation 
