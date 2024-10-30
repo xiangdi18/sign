@@ -8,7 +8,7 @@ image = Image.open("method.jpg")
 
 
 st.title("Methodology (Flow Chart)")
-st.image(Image)
+st.image(image)
 st.markdown('<div class="caption">Signature verfication flow</div>', unsafe_allow_html=True)
 
 
