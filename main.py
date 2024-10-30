@@ -119,7 +119,16 @@ def decide_gpt4(desc1,desc2):
                 "role": "user", "content":[
                 {
                     "type": "text", 
-                    "text":"Describle in detail what are in these images? Is there any similiarity between them? Provide a confidence level on how similar they are."# Also provide your confidence level in the final result."
+                    "text":
+                    """
+                    1.Line Quality: Look at the smoothness or shakiness of the lines. Are they consistent?
+                    2.Shape and Structure: Check for similarities in the curves and angles of letters or shapes.
+                    3.Spacing: Analyze the space between letters or sections of the signatures.
+                    4.Additional Marks: Notice any unique flourishes or additional marks that one has but the other does not.
+                    Provide a confidence level on how similar they are based on the above 4 points.
+                    """
+
+                    #"Describle in detail the following? Is there any similiarity between them? Provide a confidence level on how similar they are."# Also provide your confidence level in the final result."
                 },
                     {
                     "type": "image_url",
@@ -156,12 +165,12 @@ def jpgmaker(pdf_document,filename):
             page = pdf_document.load_page(page_num)
             pix = page.get_pixmap()
             img = Image.open(io.BytesIO(pix.tobytes()))
-            st.image(img, caption=f'Page {page_num + 1}', use_column_width=True)
+            #st.image(img, caption=f'Page {page_num + 1}', use_column_width=True)
             
             # Save image with the original filename and page number
             img_path = os.path.join('uploads', f'{filename}_page_{page_num + 1}.jpg')
             img.save(img_path, 'JPEG')
-            st.write(f"Saved page {page_num + 1} as {img_path}")
+            #st.write(f"Saved page {page_num + 1} as {img_path}")
 
             # Append the image path to the list
             image_paths.append(img_path)
@@ -197,7 +206,7 @@ def detect_signature_area(np_image):
     return signature_area
 
 # Function to dynamically scales a template image to find and crop the best matching region within a main image, returning this region if a match is found, or None otherwise.
-def template_matching(main_image_path, template_image_path, scales=[0.5, 0.75, 1.0, 1.25, 1.5], min_match_quality=0.8):
+def template_matching(main_image_path, template_image_path, min_match_quality=0.8):
     # Load the main image and template
     image = cv2.imread(main_image_path)
     template = cv2.imread(template_image_path, cv2.IMREAD_GRAYSCALE)
@@ -206,12 +215,17 @@ def template_matching(main_image_path, template_image_path, scales=[0.5, 0.75, 1
     if image is None or template is None:
         raise ValueError("Could not load one or both images")
     
+
     # Convert the main image to grayscale
     gray_image = cv2.cvtColor(image, cv2.COLOR_BGR2GRAY)
+    gray_image = cv2.GaussianBlur(gray_image, (5, 5), 0) # Apply Gaussian Blur to reduce noise
 
     best_match = None
     best_max_val = -1
     best_roi = None
+
+    # Finer scale granularity: 0.5 to 1.5 in increments of 0.05 
+    scales = [i / 100.0 for i in range(50, 151, 5)]
 
     for scale in scales:
         # Resize the template based on the scale factor
@@ -317,7 +331,7 @@ def check_sign(file_path, reference_signature_path):
 def find_signature(file_path, reference_signature_path):
             #try to detect image
         #np_image = np.array(Image.open(uploaded_file))
-        signature_area=template_matching(file_path, reference_signature_path, scales=[0.5, 0.75, 1.0, 1.25,1.5] )
+        signature_area=template_matching(file_path, reference_signature_path )
         if signature_area is not None:
             
             ####signature_area = detect_signature_area(np_image)
@@ -355,6 +369,22 @@ def find_signature(file_path, reference_signature_path):
 Total=[]
 option=""
 
+with st.expander("Disclaimer"):
+
+ st.write(
+
+"""
+
+IMPORTANT NOTICE: This web application is developed as a proof-of-concept prototype. The information provided here is NOT intended for actual usage and should not be relied upon for making any decisions, especially those related to financial, legal, or healthcare matters.
+
+Furthermore, please be aware that the LLM may generate inaccurate or incorrect information. You assume full responsibility for how you use any generated output.
+
+Always consult with qualified professionals for accurate and personalized advice.
+
+"""
+
+)
+
 st.title('Capstone Draft:Signature Comparison')
 
 #uploaded_file=""
@@ -365,9 +395,9 @@ reference_signature_file = st.file_uploader("Upload the reference signature for 
 # Display uploaded image & save the image as the image uploaded is in memory.
 if uploaded_file and reference_signature_file:
 
-    # Create 'uploads' directory if it doesn't exist
+# Create 'uploads' directory if it doesn't exist
     if not os.path.exists('uploads'):
-         temp_dir=os.makedirs('uploads')    
+            temp_dir=os.makedirs('uploads')    
 
 # Extract the original filename without extension
     original_filename = os.path.splitext(uploaded_file.name)[0]
@@ -402,14 +432,14 @@ if uploaded_file and reference_signature_file:
                     
                     # Describe images using GPT-4 Vision
                     reference_signature = cv2.imread(reference_signature_path, cv2.IMREAD_GRAYSCALE)
-                    pil_image = Image.fromarray(np.uint8(signature_area))
+                    pil_image = Image.fromarray(np.uint8(Total[page_num]))
                     ref_pil_image = Image.fromarray(np.uint8(reference_signature), mode='L')
 
                     signature_area_base64 = encode_image_to_base64(pil_image)
                     ref_signature_base64 = encode_image_to_base64(ref_pil_image)
 
-                    conclusion=find_image_with_gpt4(signature_area_base64,ref_signature_base64)
-                    #conclusion=decide_gpt4(signature_area_base64,ref_signature_base64)
+                    #conclusion=find_image_with_gpt4(signature_area_base64,ref_signature_base64)
+                    conclusion=decide_gpt4(signature_area_base64,ref_signature_base64)
                     st.write(f"Conclusion : {conclusion}")
 
                 elif option == 'No':
@@ -417,12 +447,16 @@ if uploaded_file and reference_signature_file:
                     #st.stop()
 
         # Find indices and values of None elements
-        none_indices = [(i, x) for i, x in enumerate(Total) if x is None]     
+        non_none_indices = [(i, x) for i, x in enumerate(Total) if x is not None]     
 
-       
+        
         st.write("Summary")
-        for index, value in none_indices:
-            st.write(f"The signature is not found on pages {index+1}")
+
+        for i, x in non_none_indices:
+            st.write("Signature are found on page " , i+1 )
+        #for index, value in none_indices:
+        #    st.write(f"The signature is not found on pages {index+1}")
+
         #st.write(f"{Total.count(None)} , out of {pages} do not have the provided signature")
         
 
@@ -447,11 +481,6 @@ if uploaded_file and reference_signature_file:
 
         # Old method of using signature_extractor
         #check_sign(file_path, reference_signature_path)
-
-
-
-
-
 
         option = st.selectbox(
             "Select an option: Do you want AI to help validate the results?",
