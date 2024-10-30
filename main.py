@@ -446,9 +446,10 @@ if uploaded_file and reference_signature_file:
         # Display a button, which is only enabled if at least one checkbox is selected 
         proceed = st.button("Proceed") if selected_pages else False
     
-        st.button("Exit. Thank you !")
-        st.image("goodbye.jpg")
-        st.stop()
+        end=st.button("Exit. Thank you !")
+        if end:
+            st.image("goodbye.jpg")
+            st.stop()
 
         if proceed:
 
