@@ -385,6 +385,8 @@ Always consult with qualified professionals for accurate and personalized advice
 
 )
 
+
+
 st.title('Capstone Draft:Signature Comparison')
 
 #uploaded_file=""
@@ -422,17 +424,41 @@ if uploaded_file and reference_signature_file:
 
                 st.write(f"Signature is found on page {page_num+1}")
 
-                option = st.selectbox(
-                "Select an option: Do you want AI to help validate the results?",
-                ('Select an option...','Yes', 'No') , key=page_num
-                )
 
-                if option == 'Yes':
-                    st.write('Summoning AI bot for assistance.....')
-                    
+
+        # Find indices and values of None elements
+        non_none_indices = [(i, x) for i, x in enumerate(Total) if x is not None]     
+
+        
+        st.write("Summary")
+        selected_pages = []
+
+        for i, x in non_none_indices:
+            if st.checkbox(f"Signature are found on page {i+1}" , key=i):
+                selected_pages.append(i)
+
+        #Use Case 2 : GPT assistance
+
+        
+
+        st.write("Select an option: Do you want AI to help validate the results?")
+        
+        # Display a button, which is only enabled if at least one checkbox is selected 
+        proceed = st.button("Proceed") if selected_pages else False
+    
+        st.button("Exit. Thank you !")
+        st.image("goodbye.jpg")
+        st.stop()
+
+        if proceed:
+
+
+                st.write('Summoning AI bot for assistance.....')
+                
+                for i in selected_pages:
                     # Describe images using GPT-4 Vision
                     reference_signature = cv2.imread(reference_signature_path, cv2.IMREAD_GRAYSCALE)
-                    pil_image = Image.fromarray(np.uint8(Total[page_num]))
+                    pil_image = Image.fromarray(np.uint8(Total[i]))
                     ref_pil_image = Image.fromarray(np.uint8(reference_signature), mode='L')
 
                     signature_area_base64 = encode_image_to_base64(pil_image)
@@ -440,24 +466,14 @@ if uploaded_file and reference_signature_file:
 
                     #conclusion=find_image_with_gpt4(signature_area_base64,ref_signature_base64)
                     conclusion=decide_gpt4(signature_area_base64,ref_signature_base64)
+                    st.write(f"Analysing signature pair at page {i+1}")
                     st.write(f"Conclusion : {conclusion}")
 
-                elif option == 'No':
-                    st.write('Send AI bot home..')
+                    #elif option == 'No':
+                    #st.write('Send AI bot home..')
                     #st.stop()
 
-        # Find indices and values of None elements
-        non_none_indices = [(i, x) for i, x in enumerate(Total) if x is not None]     
-
-        
-        st.write("Summary")
-
-        for i, x in non_none_indices:
-            st.write("Signature are found on page " , i+1 )
-        #for index, value in none_indices:
-        #    st.write(f"The signature is not found on pages {index+1}")
-
-        #st.write(f"{Total.count(None)} , out of {pages} do not have the provided signature")
+        else: st.write("Please select at least one checkbox to proceed.")
         
 
     else:   
