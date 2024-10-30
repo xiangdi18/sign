@@ -1,5 +1,6 @@
 import streamlit as st
 from pages.testv5 import main_page
+from pages.method import page_2
 
 st.set_page_config(page_title="AI Bootcamp Capstone Project", page_icon="🚀", layout="wide")
 
@@ -31,7 +32,7 @@ def page_3():
 page_names_to_funcs = {
     "Main Page": main_page,
     "Page 2": page_2,
-    "Page 3": page_3,
+    
 }
 
 selected_page = st.sidebar.selectbox("Select a page", page_names_to_funcs.keys())
