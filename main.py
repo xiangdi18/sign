@@ -19,7 +19,7 @@ from signature_detect.loader import Loader
 from signature_detect.judger import Judger
 from openai import OpenAI
 import base64
-from pages.method import page_2
+#from pages.method import page_2
 
 client = OpenAI(
     api_key= st.secrets["OPENAI_API_KEY"],
@@ -351,7 +351,7 @@ def find_signature(file_path, reference_signature_path):
             #return None
 
 ##Main 
-def main_page():
+#def main_page():
                 Total=[]
                 option=""
                 
@@ -507,7 +507,7 @@ def main_page():
 
 
 # Sidebar for navigation 
-page = st.sidebar.selectbox("Select a page", ["Main Page","Methodology Page"])
+#page = st.sidebar.selectbox("Select a page", ["Main Page","Methodology Page"])
 
 # Conditional rendering based on selection 
 #if page == "Main Page": main_page() 
