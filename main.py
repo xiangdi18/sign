@@ -19,7 +19,7 @@ from signature_detect.loader import Loader
 from signature_detect.judger import Judger
 from openai import OpenAI
 import base64
-#from pages.method import page_2
+
 
 client = OpenAI(
     api_key= st.secrets["OPENAI_API_KEY"],
@@ -351,112 +351,49 @@ def find_signature(file_path, reference_signature_path):
             #return None
 
 ##Main 
-#def main_page():
-        Total=[]
-        option=""
+
+Total=[]
+option=""
+
+st.title('Capstone Draft:Signature Comparison')
+
+#uploaded_file=""
+
+uploaded_file = st.file_uploader("Upload a PDF to validate the signature.",type=['pdf','jpg','png'])
+reference_signature_file = st.file_uploader("Upload the reference signature for comparison.", type=['jpg', 'png'])
+
+# Display uploaded image & save the image as the image uploaded is in memory.
+if uploaded_file and reference_signature_file:
+    
+
+# Extract the original filename without extension
+    original_filename = os.path.splitext(uploaded_file.name)[0]
+    reference_signature_path = os.path.join('uploads', reference_signature_file.name)
+    with open(reference_signature_path, "wb") as f:
+        f.write(reference_signature_file.getvalue())
+# check if it is PDF format and convert it.   
+    if uploaded_file.type == "application/pdf":
+        pdf_document = fitz.open(stream=uploaded_file.read(), filetype="pdf")
+        pages, image_paths=jpgmaker(pdf_document,original_filename)    
         
-        st.title('Capstone Draft:Signature Comparison')
-        
-        #uploaded_file=""
-        
-        uploaded_file = st.file_uploader("Upload a PDF to validate the signature.",type=['pdf','jpg','png'])
-        reference_signature_file = st.file_uploader("Upload the reference signature for comparison.", type=['jpg', 'png'])
-        
-        # Display uploaded image & save the image as the image uploaded is in memory.
-        if uploaded_file and reference_signature_file:
+        for page_num in range(pages):
+
+            #file_path = os.path.join('uploads', f'{original_filename}_page_{page_num + 1}.jpg')
+            signature_area=find_signature(image_paths[page_num],reference_signature_path)
+            #check_sign(file_path, reference_signature_path)
+
+            Total.append(signature_area)
             
-        
-        # Extract the original filename without extension
-            original_filename = os.path.splitext(uploaded_file.name)[0]
-            reference_signature_path = os.path.join('uploads', reference_signature_file.name)
-            with open(reference_signature_path, "wb") as f:
-                f.write(reference_signature_file.getvalue())
-        # check if it is PDF format and convert it.   
-            if uploaded_file.type == "application/pdf":
-                pdf_document = fitz.open(stream=uploaded_file.read(), filetype="pdf")
-                pages, image_paths=jpgmaker(pdf_document,original_filename)    
-                
-                for page_num in range(pages):
-        
-                    #file_path = os.path.join('uploads', f'{original_filename}_page_{page_num + 1}.jpg')
-                    signature_area=find_signature(image_paths[page_num],reference_signature_path)
-                    #check_sign(file_path, reference_signature_path)
-        
-                    Total.append(signature_area)
-                    
-        
-                    if signature_area is not None:
-        
-                        st.write(f"Signature is found on page {page_num+1}")
-        
-                        option = st.selectbox(
-                        "Select an option: Do you want AI to help validate the results?",
-                        ('Select an option...','Yes', 'No') , key=page_num
-                        )
-        
-                        if option == 'Yes':
-                            st.write('Summoning AI bot for assistance.....')
-                            
-                            # Describe images using GPT-4 Vision
-                            reference_signature = cv2.imread(reference_signature_path, cv2.IMREAD_GRAYSCALE)
-                            pil_image = Image.fromarray(np.uint8(signature_area))
-                            ref_pil_image = Image.fromarray(np.uint8(reference_signature), mode='L')
-        
-                            signature_area_base64 = encode_image_to_base64(pil_image)
-                            ref_signature_base64 = encode_image_to_base64(ref_pil_image)
-        
-                            conclusion=find_image_with_gpt4(signature_area_base64,ref_signature_base64)
-                            #conclusion=decide_gpt4(signature_area_base64,ref_signature_base64)
-                            st.write(f"Conclusion : {conclusion}")
-        
-                        elif option == 'No':
-                            st.write('Send AI bot home..')
-                            #st.stop()
-        
-                # Find indices and values of None elements
-                none_indices = [(i, x) for i, x in enumerate(Total) if x is None]     
-        
-               
-                st.write("Summary")
-                for index, value in none_indices:
-                    st.write(f"The signature is not found on pages {index+1}")
-                #st.write(f"{Total.count(None)} , out of {pages} do not have the provided signature")
-                
-        
-            else:   
-        
-        
-        # Create 'uploads' directory if it doesn't exist
-                if not os.path.exists('uploads'):
-                     temp_dir=os.makedirs('uploads')
-        
-                    
-                    # Define the path where the file will be saved
-                file_path = os.path.join('uploads', uploaded_file.name)
-        
-                    # Save the uploaded file to the temporary directory
-                with open(file_path, "wb") as f:
-                    f.write(uploaded_file.getvalue())
-        
-                signature_area=find_signature(file_path,reference_signature_path)
-        
-        
-                    # Display the file path
-                #st.write(f"File saved at: " + file_path)
-        
-                # Old method of using signature_extractor
-                #check_sign(file_path, reference_signature_path)
-        
-        
-        
-        
-        
-        
+
+            if signature_area is not None:
+
+                st.write(f"Signature is found on page {page_num+1}")
+
                 option = st.selectbox(
-                    "Select an option: Do you want AI to help validate the results?",
-                    ('Select an option...','Yes', 'No')
+                "Select an option: Do you want AI to help validate the results?",
+                ('Select an option...','Yes', 'No') , key=page_num
                 )
-        
+
                 if option == 'Yes':
                     st.write('Summoning AI bot for assistance.....')
                     
@@ -464,53 +401,109 @@ def find_signature(file_path, reference_signature_path):
                     reference_signature = cv2.imread(reference_signature_path, cv2.IMREAD_GRAYSCALE)
                     pil_image = Image.fromarray(np.uint8(signature_area))
                     ref_pil_image = Image.fromarray(np.uint8(reference_signature), mode='L')
-        
+
                     signature_area_base64 = encode_image_to_base64(pil_image)
                     ref_signature_base64 = encode_image_to_base64(ref_pil_image)
-        
-                    conclusion=decide_gpt4(signature_area_base64,ref_signature_base64)
+
+                    conclusion=find_image_with_gpt4(signature_area_base64,ref_signature_base64)
+                    #conclusion=decide_gpt4(signature_area_base64,ref_signature_base64)
                     st.write(f"Conclusion : {conclusion}")
-        
+
                 elif option == 'No':
-                    st.write('Goodbye then.')
-                    st.stop()
+                    st.write('Send AI bot home..')
+                    #st.stop()
+
+        # Find indices and values of None elements
+        none_indices = [(i, x) for i, x in enumerate(Total) if x is None]     
+
+       
+        st.write("Summary")
+        for index, value in none_indices:
+            st.write(f"The signature is not found on pages {index+1}")
+        #st.write(f"{Total.count(None)} , out of {pages} do not have the provided signature")
         
-        
-        
-                
-        
-        
-                    
-                #signature_area=check_sign(file_path, reference_signature_path)
-        
-                # Describe images using GPT-4 Vision
-                    #pil_image = Image.fromarray(np.uint8(signature_area))
-                    #ref_pil_image = Image.fromarray(np.uint8(reference_signature), mode='L')
-        
-                    #signature_area_base64 = encode_image_to_base64(pil_image)
-                    #ref_signature_base64 = encode_image_to_base64(ref_pil_image)
-        
-        
-                
-        
-        
-                #description_1 = describe_image_with_gpt4(signature_area_base64)
-                #description_2 = describe_image_with_gpt4(ref_signature_base64)
-               
-                #conclusion = decide_gpt4(signature_area_base64,ref_signature_base64)
-        
-                #st.write("GPT-4 Vision Descriptions:")
-                #st.write(f"Description 1: {description_1}")
-                #st.write(f"Description 2: {description_2}")
-                #st.write(f"Final conclusion : {conclusion}")
+
+    else:   
+
+
+# Create 'uploads' directory if it doesn't exist
+        if not os.path.exists('uploads'):
+             temp_dir=os.makedirs('uploads')
+
+            
+            # Define the path where the file will be saved
+        file_path = os.path.join('uploads', uploaded_file.name)
+
+            # Save the uploaded file to the temporary directory
+        with open(file_path, "wb") as f:
+            f.write(uploaded_file.getvalue())
+
+        signature_area=find_signature(file_path,reference_signature_path)
+
+
+            # Display the file path
+        #st.write(f"File saved at: " + file_path)
+
+        # Old method of using signature_extractor
+        #check_sign(file_path, reference_signature_path)
 
 
 
-# Sidebar for navigation 
-#page = st.sidebar.selectbox("Select a page", ["Main Page","Methodology Page"])
 
-# Conditional rendering based on selection 
-#if page == "Main Page": main_page() 
-#elif page == "Methodology Page": page_2()
+
+
+        option = st.selectbox(
+            "Select an option: Do you want AI to help validate the results?",
+            ('Select an option...','Yes', 'No')
+        )
+
+        if option == 'Yes':
+            st.write('Summoning AI bot for assistance.....')
+            
+            # Describe images using GPT-4 Vision
+            reference_signature = cv2.imread(reference_signature_path, cv2.IMREAD_GRAYSCALE)
+            pil_image = Image.fromarray(np.uint8(signature_area))
+            ref_pil_image = Image.fromarray(np.uint8(reference_signature), mode='L')
+
+            signature_area_base64 = encode_image_to_base64(pil_image)
+            ref_signature_base64 = encode_image_to_base64(ref_pil_image)
+
+            conclusion=decide_gpt4(signature_area_base64,ref_signature_base64)
+            st.write(f"Conclusion : {conclusion}")
+
+        elif option == 'No':
+            st.write('Goodbye then.')
+            st.stop()
+
+
+
+        
+
+
+            
+        #signature_area=check_sign(file_path, reference_signature_path)
+
+        # Describe images using GPT-4 Vision
+            #pil_image = Image.fromarray(np.uint8(signature_area))
+            #ref_pil_image = Image.fromarray(np.uint8(reference_signature), mode='L')
+
+            #signature_area_base64 = encode_image_to_base64(pil_image)
+            #ref_signature_base64 = encode_image_to_base64(ref_pil_image)
+
+
+        
+
+
+        #description_1 = describe_image_with_gpt4(signature_area_base64)
+        #description_2 = describe_image_with_gpt4(ref_signature_base64)
+       
+        #conclusion = decide_gpt4(signature_area_base64,ref_signature_base64)
+
+        #st.write("GPT-4 Vision Descriptions:")
+        #st.write(f"Description 1: {description_1}")
+        #st.write(f"Description 2: {description_2}")
+        #st.write(f"Final conclusion : {conclusion}")
+
+
 
     
