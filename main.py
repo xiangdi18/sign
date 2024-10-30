@@ -364,7 +364,10 @@ reference_signature_file = st.file_uploader("Upload the reference signature for 
 
 # Display uploaded image & save the image as the image uploaded is in memory.
 if uploaded_file and reference_signature_file:
-    
+
+# Create 'uploads' directory if it doesn't exist
+        if not os.path.exists('uploads'):
+             temp_dir=os.makedirs('uploads')    
 
 # Extract the original filename without extension
     original_filename = os.path.splitext(uploaded_file.name)[0]
@@ -426,9 +429,7 @@ if uploaded_file and reference_signature_file:
     else:   
 
 
-# Create 'uploads' directory if it doesn't exist
-        if not os.path.exists('uploads'):
-             temp_dir=os.makedirs('uploads')
+
 
             
             # Define the path where the file will be saved
