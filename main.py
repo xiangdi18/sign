@@ -511,6 +511,6 @@ page = st.sidebar.selectbox("Select a page", ["Main Page","Methodology Page"])
 
 # Conditional rendering based on selection 
 if page == "Main Page": main_page() 
-elif page == "Methodology Page": page_2
+elif page == "Methodology Page": page_2()
 
     
