@@ -146,5 +146,3 @@ selected_function = st.sidebar.selectbox(
 st.write(f"**{selected_function} Documentation**")
 st.write(functions_docs[selected_function])
 
-# Optionally, you can add more interactive elements or features here
-st.write("You can add more information or interactions related to the selected function here.")
