@@ -22,8 +22,7 @@ For signature, we only allow jpg to ensure that only 1 signature is uploaded.
 
 As streamlit stores documents inside memory. we would need to convert into jpg images first before we can perform any image manipulation.
 
-jpgmaker() is used to convert any pdf document to jpg and stores into upload folder.
-
+    jpgmaker() is used to convert any pdf document to jpg and stores into upload folder.
     a)It extracts the filename and appends page number to it.
     b)Finally, it returns the total pages , array of jpg location.
 
