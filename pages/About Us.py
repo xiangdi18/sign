@@ -19,8 +19,4 @@ st.write("This section will detail the various data sources used in the project.
 st.header("Features")
 st.write("This section will describe the main features of the project.")
 
-# Placeholder text for now
-st.write("""
-Here's where you can add detailed descriptions about your project scope, objectives, data sources, and features.
-Feel free to update each section with specific information as you progress.
-""")
+
