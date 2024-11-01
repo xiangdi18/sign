@@ -84,9 +84,9 @@ find_signature() consists of a few sub modules to help with the signature detect
 
     template_matching() 
         # Function to dynamically scales the authorised image(signature) to find and crop the best matching region within a main image, returning this region if a match is found, or None otherwise.
-        a) converts the uploaded image to grayscale and apply Gaussian Blur to reduce noise from the image.
-        b) resize the authorised signature using scale granularity: 0.5 to 1.5 in increments of 0.05  (try using less granular but results are not as good hence make it smaller and more granular however will have performance impact)
-        c) 
+            a) converts the uploaded image to grayscale and apply Gaussian Blur to reduce noise from the image.
+            b) resize the authorised signature using scale granularity: 0.5 to 1.5 in increments of 0.05  (try using less granular but results are not as good hence make it smaller and more granular however will have performance impact)
+            c) 
     This function dynamically scales a template image to find and crop the best matching region within a main image. If a match is found, it returns the region of interest (ROI); otherwise, it returns None. Args: main_image_path (str): Path to the main image file. template_image_path (str): Path to the template image file. min_match_quality (float, optional): Minimum match quality required to consider a match valid. Defaults to 0.8. Returns: numpy.ndarray: The cropped region of the main image where the template best matches, or None if no match is found. Raises: ValueError: If either the main image or the template image cannot be loaded.
 
 Step 3:
