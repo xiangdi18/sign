@@ -12,7 +12,7 @@ st.image("method.jpg")
 
 st.write(
 """
-#Use Case 1 : Signature verfication flow
+# Use Case 1 : Signature verfication flow
 Step 1:
 
 User requires to upload 2 document, the actual document for verification and 2nd the authorised signature for verification.
