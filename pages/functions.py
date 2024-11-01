@@ -129,11 +129,50 @@ numpy.ndarray or None: The cropped region of the main image where the template b
     """
     pass
 
+def decide_gpt4():
+    """
+Purpose: The decide_gpt4 function uses OpenAI's GPT-4 model to compare two signature images and provide an expert analysis of their similarities based on specific criteria. It returns a detailed response with a confidence level on how similar the signatures are.
+
+Args:
+
+desc1 (str): Base64-encoded string representing the first signature image.
+
+desc2 (str): Base64-encoded string representing the second signature image.
+
+Returns:
+
+str: The GPT-4 model's response containing an expert analysis of the similarities between the two signatures.
+
+### Steps:
+1. **Create GPT-4 Chat Completion Request**:
+   - Create a chat completion request to the GPT-4 model using the `client.chat.completions.create` method.
+
+2. **Define System Role**:
+   - The system role is set to instruct GPT-4 to act as an expert in signature recognition with the ability to describe the signature details. The system should explain any inability to view the images.
+
+3. **Prepare User Content**:
+   - The user content includes detailed criteria for signature comparison:
+     1. Line Quality: Smoothness or shakiness of the lines.
+     2. Shape and Structure: Similarities in curves and angles.
+     3. Spacing: Space between letters or sections.
+     4. Additional Marks: Unique flourishes or additional marks.
+   - The content also includes base64-encoded URLs for the two signature images.
+
+4. **Call GPT-4 Model**:
+   - Invoke the GPT-4 model with the prepared messages and model specification.
+
+5. **Extract and Return Response**:
+   - Extract the response content from the GPT-4 model and return it.
+
+    """
+    pass
+    
 # Mapping function names to their documentation
 functions_docs = {
     "jpgmaker": jpgmaker.__doc__,
     "find_signature": find_signature.__doc__,
     "template_matching": template_matching.__doc__
+    "decide_gpt4": decide_gpt4.__doc__,
 }
 
 # Sidebar for function selection
