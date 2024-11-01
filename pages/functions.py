@@ -1,7 +1,49 @@
 import streamlit as st
 
-def func1():
-    """Function 1: This function does X, Y, and Z."""
+def jpgmaker():
+    """
+Documentation for jpgmaker Function
+Purpose: The jpgmaker function converts each page of a PDF document into a JPEG image and saves these images to the specified directory. It returns the total number of pages processed and the paths to the saved images.
+
+Args:
+
+pdf_document: A PDF document object from which pages are to be extracted.
+
+filename (str): The base name to use for the saved image files.
+
+Returns:
+
+int: The total number of pages in the PDF document.
+
+list: A list of file paths where the images are saved.
+
+Steps:
+
+Initialize Image Paths List:
+
+Initialize an empty list image_paths to store the paths to the saved images.
+
+Iterate Through PDF Pages:
+
+Loop through each page of the pdf_document using a for loop.
+
+For each page, generate a pixmap using pdf_document.load_page(page_num).get_pixmap().
+
+Convert the pixmap to an image using Image.open(io.BytesIO(pix.tobytes())).
+
+Save Each Page as JPEG:
+
+Construct the image file path using the provided filename and the current page number.
+
+Save the image as a JPEG file at the constructed path.
+
+Append the image path to the image_paths list.
+
+Return Total Pages and Image Paths:
+
+Return the total number of pages in the PDF document and the list of image paths.
+    
+    """
     pass
 
 def func2():
