@@ -171,7 +171,7 @@ str: The GPT-4 model's response containing an expert analysis of the similaritie
 functions_docs = {
     "jpgmaker": jpgmaker.__doc__,
     "find_signature": find_signature.__doc__,
-    "template_matching": template_matching.__doc__
+    "template_matching": template_matching.__doc__,
     "decide_gpt4": decide_gpt4.__doc__,
 }
 
