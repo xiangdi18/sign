@@ -86,10 +86,10 @@ We encode the image back to base64 as OpenAI 's vision capabilities only works w
 
 then we use decide_gpt4() function to ask the OpenAI's vision to compare the 2 images based on below:
 
-                    1.Line Quality: Look at the smoothness or shakiness of the lines. Are they consistent?
-                    2.Shape and Structure: Check for similarities in the curves and angles of letters or shapes.
-                    3.Spacing: Analyze the space between letters or sections of the signatures.
-                    4.Additional Marks: Notice any unique flourishes or additional marks that one has but the other does not.
+        1.Line Quality: Look at the smoothness or shakiness of the lines. Are they consistent?
+        2.Shape and Structure: Check for similarities in the curves and angles of letters or shapes.
+        3.Spacing: Analyze the space between letters or sections of the signatures.
+        4.Additional Marks: Notice any unique flourishes or additional marks that one has but the other does not.
                     
 Finally, provide a confidence level on the check to the user.
 
