@@ -94,3 +94,13 @@ Step 3:
 Provides a summary on the signature found on pages xxx out of the whole document.
 
 """
+# Example code to display
+code = '''
+def greet(name):
+    return f"Hello, {name}!"
+
+print(greet("World"))
+'''
+
+# Display the code snippet using st.code
+st.code(code, language='python')
