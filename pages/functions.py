@@ -56,7 +56,7 @@ def func3():
 
 # Mapping function names to their documentation
 functions_docs = {
-    "Function 1": func1.__doc__,
+    "jpgmaker()": jpgmaker.__doc__,
     "Function 2": func2.__doc__,
     "Function 3": func3.__doc__
 }
