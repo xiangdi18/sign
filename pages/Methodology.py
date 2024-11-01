@@ -8,7 +8,7 @@ st.markdown( """ <style> .caption { font-size: 20px; font-family: Arial, sans-se
 
 st.title("Methodology (Flow Chart)")
 st.image("method.jpg")
-st.markdown('<div class="caption">Signature verfication flow</div>', unsafe_allow_html=True)
+#st.markdown('<div class="caption">Signature verfication flow</div>', unsafe_allow_html=True)
 
 st.write(
 """
