@@ -38,8 +38,46 @@ list: A list of file paths where the images are saved.
     """
     pass
 
-def func2():
-    """Function 2: This function performs A, B, and C."""
+def find_signature():
+    """
+Purpose: The find_signature function detects and compares a signature within a given image against a reference signature image using a series of image processing and feature extraction steps. If a match is found, it returns the matched signature region; otherwise, it returns None.
+
+Args:
+
+file_path (str): Path to the main image file containing the signature to be detected.
+
+reference_signature_path (str): Path to the reference signature image file.
+
+Returns:
+
+numpy.ndarray or None: The region of the main image where the signature is found. Returns None if no match is found.
+
+### Steps:
+1. **Detect Signature Area**:
+   - Use the `template_matching` function to detect the signature area in the main image.
+   - If no signature area is detected, return `None`.
+
+2. **Preprocess Detected Signature Area**:
+   - Convert the detected signature area to a suitable format using the `preprocess_image` function.
+
+3. **Preprocess Reference Signature**:
+   - Load the reference signature image and convert it to grayscale using `cv2.imread(reference_signature_path, cv2.IMREAD_GRAYSCALE)`.
+   - Preprocess the reference signature using the `preprocess_image` function.
+
+4. **Extract Features**:
+   - Extract features from both the detected signature area and the reference signature using the `extract_features` function.
+
+5. **Calculate Similarity**:
+   - Compute the cosine similarity between the feature vectors of the detected signature and the reference signature using the `cosine_similarity` function.
+
+6. **Display Results**:
+   - Display the similarity score and images of the detected and reference signatures using `st.write` and `st.image`.
+   - Provide an explanation of the similarity score.
+
+7. **Return Signature
+    - If a match is found, return the region of the main image where the signature is detected. Otherwise, return `None`.
+    
+    """
     pass
 
 def func3():
@@ -48,8 +86,8 @@ def func3():
 
 # Mapping function names to their documentation
 functions_docs = {
-    "jpgmaker()": jpgmaker.__doc__,
-    "Function 2": func2.__doc__,
+    "jpgmaker": jpgmaker.__doc__,
+    "find_signature": find_signature.__doc__,
     "Function 3": func3.__doc__
 }
 
