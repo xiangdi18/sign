@@ -22,7 +22,8 @@ For signature, we only allow jpg to ensure that only 1 signature is uploaded.
 
 As streamlit stores documents inside memory. we would need to convert into jpg images first before we can perform any image manipulation.
 
-    jpgmaker() is used to convert any pdf document to jpg and stores into upload folder.
+jpgmaker() is used to convert any pdf document to jpg and stores into upload folder.
+
     a)It extracts the filename and appends page number to it.
     b)Finally, it returns the total pages , array of jpg location.
 
@@ -74,6 +75,25 @@ Displaying the idetified signature with the authorised signature on the found pa
 Provides a summary on the signature found on pages xxx out of the whole document.
 
 The End.
+
+Use Case 2 : AI assisted verification
+
+For the use case 2 where we try to muster chatGPT's vision to help to verify the identified signature with the authorised signature and to provide an confidence level to the user.
+
+Step 4:
+
+We encode the image back to base64 as OpenAI 's vision capabilities only works with that.
+
+then we use decide_gpt4() function to ask the OpenAI's vision to compare the 2 images based on below:
+
+                    1.Line Quality: Look at the smoothness or shakiness of the lines. Are they consistent?
+                    2.Shape and Structure: Check for similarities in the curves and angles of letters or shapes.
+                    3.Spacing: Analyze the space between letters or sections of the signatures.
+                    4.Additional Marks: Notice any unique flourishes or additional marks that one has but the other does not.
+Finally, provide a confidence level on the check to the user.
+
+The end of use case 2.
+
 """
 )
 
