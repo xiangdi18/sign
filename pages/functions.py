@@ -80,15 +80,60 @@ numpy.ndarray or None: The region of the main image where the signature is found
     """
     pass
 
-def func3():
-    """Function 3: This function is responsible for P, Q, and R."""
+def template_matching():
+    """
+Purpose: The template_matching function dynamically scales a template image to find and crop the best matching region within a main image. If a match is found, it returns the region of interest (ROI); otherwise, it returns None.
+
+Args:
+
+main_image_path (str): Path to the main image file.
+
+template_image_path (str): Path to the template image file.
+
+min_match_quality (float, optional): Minimum match quality required to consider a match valid. Defaults to 0.8.
+
+Returns:
+
+numpy.ndarray or None: The cropped region of the main image where the template best matches, or None if no match is found.
+    
+### Steps:
+1. **Load Images**:
+   - Load the main image using `cv2.imread(main_image_path)`.
+   - Load the template image in grayscale using `cv2.imread(template_image_path, cv2.IMREAD_GRAYSCALE)`.
+
+2. **Verify Image Load**:
+   - Check if both images are loaded successfully. If not, raise a `ValueError`.
+
+3. **Convert Main Image to Grayscale**:
+   - Convert the main image to grayscale using `cv2.cvtColor(image, cv2.COLOR_BGR2GRAY)`.
+   - Apply Gaussian Blur to reduce noise using `cv2.GaussianBlur(gray_image, (5, 5), 0)`.
+
+4. **Define Scale Intervals**:
+   - Define finer scale granularity from 0.5 to 1.5 in increments of 0.05 using `[i / 100.0 for i in range(50, 151, 5)]`.
+
+5. **Template Matching for Each Scale**:
+   - Loop over each scale factor:
+     - Resize the template image based on the scale factor using `cv2.resize`.
+     - Skip if the resized template is too small.
+     - Apply template matching using `cv2.matchTemplate`.
+
+6. **Identify Best Match**:
+   - For each template match, use `cv2.minMaxLoc` to find the best match position.
+   - If the match quality is better than the current best and exceeds the minimum match quality, update the best match information.
+
+7. **Crop the Best Matching Region**:
+   - If a valid match is found, crop the region of interest (ROI) from the main image using the best match coordinates.
+
+8. **Return the Result
+    
+    """
     pass
 
 # Mapping function names to their documentation
 functions_docs = {
     "jpgmaker": jpgmaker.__doc__,
     "find_signature": find_signature.__doc__,
-    "Function 3": func3.__doc__
+    "template_matching": template_matching.__doc__
 }
 
 # Sidebar for function selection
