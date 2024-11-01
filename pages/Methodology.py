@@ -90,6 +90,7 @@ then we use decide_gpt4() function to ask the OpenAI's vision to compare the 2 i
                     2.Shape and Structure: Check for similarities in the curves and angles of letters or shapes.
                     3.Spacing: Analyze the space between letters or sections of the signatures.
                     4.Additional Marks: Notice any unique flourishes or additional marks that one has but the other does not.
+                    
 Finally, provide a confidence level on the check to the user.
 
 The end of use case 2.
