@@ -17,32 +17,24 @@ int: The total number of pages in the PDF document.
 
 list: A list of file paths where the images are saved.
 
-Steps:
+### Steps:
+1. **Initialize Image Paths List**:
+   - Initialize an empty list `image_paths` to store the paths to the saved images.
 
-Initialize Image Paths List:
+2. **Iterate Through PDF Pages**:
+   - Loop through each page of the `pdf_document` using a `for` loop.
+   - For each page, generate a pixmap using `pdf_document.load_page(page_num).get_pixmap()`.
+   - Convert the pixmap to an image using `Image.open(io.BytesIO(pix.tobytes()))`.
 
-Initialize an empty list image_paths to store the paths to the saved images.
+3. **Save Each Page as JPEG**:
+   - Construct the image file path using the provided `filename` and the current page number.
+   - Save the image as a JPEG file at the constructed path.
+   - Append the image path to the `image_paths` list.
 
-Iterate Through PDF Pages:
+4. **Return Total Pages and Image Paths**:
+   - Return the total number of pages in the PDF document and the list of image paths.
 
-Loop through each page of the pdf_document using a for loop.
-
-For each page, generate a pixmap using pdf_document.load_page(page_num).get_pixmap().
-
-Convert the pixmap to an image using Image.open(io.BytesIO(pix.tobytes())).
-
-Save Each Page as JPEG:
-
-Construct the image file path using the provided filename and the current page number.
-
-Save the image as a JPEG file at the constructed path.
-
-Append the image path to the image_paths list.
-
-Return Total Pages and Image Paths:
-
-Return the total number of pages in the PDF document and the list of image paths.
-    
+   
     """
     pass
 
