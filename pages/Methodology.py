@@ -76,9 +76,8 @@ Provides a summary on the signature found on pages xxx out of the whole document
 
 The End.
 
-##########################################
-# Use Case 2 : AI assisted verification ##
-##########################################
+# Use Case 2 : AI assisted verification 
+
 For the use case 2 where we try to muster chatGPT's vision to help to verify the identified signature with the authorised signature and to provide an confidence level to the user.
 
 Step 4:
