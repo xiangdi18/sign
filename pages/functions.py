@@ -2,7 +2,7 @@ import streamlit as st
 
 def jpgmaker():
     """
-Documentation for jpgmaker Function
+
 Purpose: The jpgmaker function converts each page of a PDF document into a JPEG image and saves these images to the specified directory. It returns the total number of pages processed and the paths to the saved images.
 
 Args:
