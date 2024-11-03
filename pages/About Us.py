@@ -13,7 +13,8 @@ st.write("This section will outline the main objectives of the project.")
 
 # Data Sources
 st.header("Data Sources")
-st.write("""
+st.write(
+        """
 
         As this is an image detection , we are using PyTorch ResNet 50 pre-trained model for the image detection. 
         It has one of the highest accuracy reported and is widely used for image detection. 
