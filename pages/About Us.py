@@ -55,10 +55,10 @@ st.table(df)
 
 # Features
 st.header("Features")
+st.subheader("Use Case 1: Signature Identification")
 st.write(
     """
-    #Use Case 1: Signature Identification
-    
+        
     To enhance productivity and accuracy in document verification, our solution employs a image matching algorithm tailored to detect authorized signatures across multiple pages within documents or reports.
 
     **1.Signature Extraction:
@@ -82,9 +82,13 @@ st.write(
     
     Once the image matching process is complete, the algorithm assigns a confidence score to each detected signature. This score reflects the likelihood that the identified signature matches the reference.
     
+    """
+    )
 
-     #Use Case 2: Leveraging OpenAI's Vision Capabilities for Secondary Verification
-     
+    st.subheader("Use Case 2: Leveraging OpenAI's Vision Capabilities for Secondary Verification")
+    st.write(
+    """
+         
     To enhance the accuracy and reliability of our signature verification system, we utilise OpenAI's new vision capabilities as a secondary layer of verification. 
     By employing this advanced technology, we aim to ensure that the identified signature within the document is authenticated with the highest confidence. 
     The process involves the following key steps:
