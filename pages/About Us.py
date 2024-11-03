@@ -130,8 +130,7 @@ st.write(
     Yours truly,
     
     """
-    st.image("")
     
     )
 
-
+    st.image("")
