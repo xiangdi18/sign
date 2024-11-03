@@ -85,8 +85,8 @@ st.write(
     """
     )
 
-    st.subheader("Use Case 2: Leveraging OpenAI's Vision Capabilities for Secondary Verification")
-    st.write(
+st.subheader("Use Case 2: Leveraging OpenAI's Vision Capabilities for Secondary Verification")
+st.write(
     """
          
     To enhance the accuracy and reliability of our signature verification system, we utilise OpenAI's new vision capabilities as a secondary layer of verification. 
