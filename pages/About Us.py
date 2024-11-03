@@ -135,3 +135,6 @@ st.write(
 
 st.image("thomas.jpg", width=300 )
 st.caption("Team member 1 : Thomas Wong from HTX")
+
+st.image("nic.jpg", width=300 )
+st.caption("Team member 2 : Nicholas Szeto from HTX")
