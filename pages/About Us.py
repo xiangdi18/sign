@@ -133,4 +133,5 @@ st.write(
     
     )
 
-st.image("")
+st.image("thomas.jpg")
+st.caption("Team member 1 : Thomas Wong from HTX")
