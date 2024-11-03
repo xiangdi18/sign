@@ -1,4 +1,18 @@
 import streamlit as st
+import pandas as pd
+
+# Model data
+data = {
+    'Weight': ['ResNet50_Weights.IMAGENET1K_V2'],
+    'Acc@1': [80.858],
+    'Acc@5': [95.434],
+    'Params': ['25.6M'],
+    'GFLOPS': [4.09]
+}
+
+# Create a DataFrame
+df = pd.DataFrame(data)
+
 
 # Setting the title
 st.title("About Us")
@@ -22,12 +36,10 @@ st.write(
 
         Accuracies are reported on ImageNet-1K using single crops:
         
-        Weight                            Acc@1   Acc@5   Params GFLOPS
-        ResNet50_Weights.IMAGENET1K_V2    80.858  95.434  25.6M  4.09
-
-        
         """
         )
+st.table(df)
+
 
 # Features
 st.header("Features")
