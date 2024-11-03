@@ -114,4 +114,24 @@ st.write(
     """
     )
 
+st.header("Additional information and thought process")
+st.write(
+    """
+    Initially, we envisioned to use OpenAI's vision to help to find and compare the signature but it was less than ideal as the vision's capabilities is still in its infancy stage. The results are often not helpful and had alot of hallucination.
+
+    Then we embarked on non-AI method to try to first find a signature but this also produced alot of misses and alot of false posistive.
+    
+    We spend a large amount of time trying to figure out the best way of image extraction and tried and tested numerous way for signature matching. But most of the other methods produced disappointing result. :(
+
+    Finally, we settled on using a provided image to do a comparison instead. This greatly improved the results although not as ideal as the 'automated' way of signature detection but at least we are getting better results.
+
+    In the end, even though the solution may look simple and easy but we spend most of the time isolating and finding the best way for image matching. Please pardon us for not producing more. 
+
+    Yours truly,
+    
+    """
+    st.image("")
+    
+    )
+
 
